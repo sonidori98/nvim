@@ -19,28 +19,22 @@ vim.opt.clipboard = "unnamedplus"
 -- マウス有効化
 vim.opt.mouse = "a"
 
--- 不要な標準プラグインを無効化
-local disabled_built_ins = {
-    "netrw",
-    "netrwPlugin",
-    "netrwSettings",
-    "netrwFileHandlers",
-    "gzip",
-    "zip",
-    "zipPlugin",
-    "tar",
-    "tarPlugin",
-    "getscript",
-    "getscriptPlugin",
-    "vimball",
-    "vimballPlugin",
-    "2html_plugin",
-    "logipat",
-    "rrhelper",
-}
-
-for _, plugin in ipairs(disabled_built_ins) do
-    vim.g["loaded_" .. plugin] = 1
+-- IMEを自動でオフ
+local uname = vim.uv.os_uname()
+local group = vim.api.nvim_create_augroup("conf-ime", {})
+if uname.sysname == "Linux" then
+    if os.getenv("WSL_DISTRO_NAME") ~= "" then
+        vim.api.nvim_create_autocmd("InsertLeave", {
+            group = group,
+            command = "silent! !zenhan.exe 0",
+        })
+    else
+        vim.api.nvim_create_autocmd("InsertLeave", {
+            callback = function()
+                os.execute("fcitx5-remote -c")
+            end
+        })
+    end
 end
 
 -- tree-sitter
