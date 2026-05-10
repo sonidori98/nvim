@@ -19,16 +19,21 @@ vim.opt.clipboard = "unnamedplus"
 -- マウス有効化
 vim.opt.mouse = "a"
 
--- treesitter
--- local ts_group = vim.api.nvim_create_augroup("treesitter_setup", { clear = true })
---
--- vim.api.nvim_create_autocmd("FileType", {
--- 	group = ts_group,
--- 	pattern = { "cpp", "rust", "lua", "bash", "python" },
--- 	callback = function(args)
--- 		local lang = vim.treesitter.language.get_lang(vim.bo[args.buf].filetype)
--- 		if lang then
--- 			pcall(vim.treesitter.start, args.buf, lang)
--- 		end
--- 	end,
--- })
+-- tree-sitter
+local ts_group = vim.api.nvim_create_augroup("treesitter_setup", { clear = true })
+
+vim.api.nvim_create_autocmd("FileType", {
+    group = ts_group,
+    pattern = { "cpp", "rust", "lua", "bash", "python", "c" },
+    callback = function(args)
+        local bufnr = args.buf
+        local ft = vim.bo[bufnr].filetype
+        local lang = vim.treesitter.language.get_lang(ft) or ft
+
+        local has_parser, _ = pcall(vim.treesitter.language.add, lang)
+        if has_parser then
+            vim.treesitter.start(bufnr, lang)
+            vim.bo[bufnr].indentexpr = "v:lua.vim.treesitter.indentexpr()"
+        end
+    end,
+})
