@@ -22,6 +22,26 @@ require("lazy").setup({
         lazy = true,
     },
     checker = { enable = true },
+    performance = {
+        rtp = {
+            disabled_plugins = {
+                "netrw",
+                "netrwPlugin",
+                "netrwSettings",
+                "netrwFileHandlers",
+                "gzip",
+                "zip",
+                "zipPlugin",
+                "tar",
+                "tarPlugin",
+                "getscript",
+                "getscriptPlugin",
+                "vimball",
+                "vimballPlugin",
+                "2html_plugin",
+                "logipat",
+                "rrhelper",
+            },
+        },
+    },
 })
-
-vim.cmd([[colorscheme parsee]])
