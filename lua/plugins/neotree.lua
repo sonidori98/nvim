@@ -1,7 +1,6 @@
 return {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x",
-    -- lazy = false,
     keys = {
         { "<C-n>", "<cmd>Neotree toggle<cr>", desc = "Neo-tree toggle" },
     },
@@ -9,7 +8,7 @@ return {
         close_if_last_window = true,
         filesystem = {
             window = {
-                width = 25
+                width = 30
             },
         },
     },

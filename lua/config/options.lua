@@ -33,7 +33,6 @@ vim.api.nvim_create_autocmd("FileType", {
         local has_parser, _ = pcall(vim.treesitter.language.add, lang)
         if has_parser then
             vim.treesitter.start(bufnr, lang)
-            vim.bo[bufnr].indentexpr = "v:lua.vim.treesitter.indentexpr()"
         end
     end,
 })
