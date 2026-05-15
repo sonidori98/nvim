@@ -19,6 +19,8 @@ vim.opt.clipboard = "unnamedplus"
 -- マウス有効化
 vim.opt.mouse = "a"
 
+vim.opt.wrap = false
+
 -- IMEを自動でオフ
 local uname = vim.uv.os_uname()
 local group = vim.api.nvim_create_augroup("conf-ime", {})
