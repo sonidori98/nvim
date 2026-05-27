@@ -5,6 +5,9 @@ return {
         keymap = { preset = "super-tab" },
         sources = {
             default = { "lazydev", "snippets", "lsp", "path", "buffer" },
+            per_filetype = {
+                markdown = { "snippets", "lsp", "path" },
+            },
             providers = {
                 dictionary = {
                     module = "blink-cmp-dictionary",
