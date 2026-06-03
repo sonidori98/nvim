@@ -1,0 +1,8 @@
+local M = {
+    error_icon = " ",
+    warn_icon = " ",
+    hint_icon = "󰌵 ",
+    info_icon = " ",
+}
+
+return M

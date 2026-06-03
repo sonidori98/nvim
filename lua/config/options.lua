@@ -21,6 +21,18 @@ vim.opt.mouse = "a"
 
 vim.opt.wrap = false
 
+local icons = require("config.icons")
+vim.diagnostic.config({
+    signs = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = icons.error_icon,
+            [vim.diagnostic.severity.WARN]  = icons.warn_icon,
+            [vim.diagnostic.severity.HINT]  = icons.hint_icon,
+            [vim.diagnostic.severity.INFO]  = icons.info_icon,
+        },
+    },
+})
+
 -- IMEを自動でオフ
 local uname = vim.uv.os_uname()
 local group = vim.api.nvim_create_augroup("conf-ime", {})
