@@ -31,6 +31,7 @@ vim.diagnostic.config({
             [vim.diagnostic.severity.INFO]  = icons.info_icon,
         },
     },
+    virtual_text = false
 })
 
 -- IMEを自動でオフ
