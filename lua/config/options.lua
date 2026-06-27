@@ -21,6 +21,12 @@ vim.opt.mouse = "a"
 
 vim.opt.wrap = false
 
+vim.opt.splitright = true
+
+if vim.lsp.inlay_hint then
+    vim.lsp.inlay_hint.enable(true, { 0 })
+end
+
 local icons = require("config.icons")
 vim.diagnostic.config({
     signs = {
