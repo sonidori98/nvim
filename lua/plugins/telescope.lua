@@ -9,6 +9,6 @@ return {
         { "gd",         "<cmd>Telescope lsp_definitions<cr>",     desc = "Telescope go to definition",      mode = "n" },
         { "gr",         "<cmd>Telescope lsp_references<cr>",      desc = "Telescope go to references",      mode = "n" },
         { "gi",         "<cmd>Telescope lsp_implementations<cr>", desc = "Telescope go to implementations", mode = "n" },
-        { "gy",         "<cmd>Telescope lsp_type_definitions",    desc = "Telescope go to type definition", mode = "n" },
+        { "gy",         "<cmd>Telescope lsp_type_definitions<cr>", desc = "Telescope go to type definition", mode = "n" },
     },
 }
