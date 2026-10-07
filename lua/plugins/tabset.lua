@@ -8,7 +8,7 @@ return {
         },
         languages = {
             {
-                filetypes = { "c", "cpp" },
+                filetypes = { "c", "cpp", "markdown" },
                 config = {
                     tabwidth = 2,
                     expandtab = true,
