@@ -1,6 +1,6 @@
 return {
     "zbirenbaum/copilot.lua",
-    event = { "BufReadPre", "BufNewFile" },
+    event = { "InsertEnter" },
     opts = {
         suggestion = {
             auto_trigger = true,
