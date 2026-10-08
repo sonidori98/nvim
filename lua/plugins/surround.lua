@@ -1,5 +1,5 @@
 return {
-    "kylechui/nvim-surround",
-    version = "^4.0.0",
-    event = "VeryLazy",
+	"kylechui/nvim-surround",
+	version = "^4.0.0",
+	event = "VeryLazy",
 }

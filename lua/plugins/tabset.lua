@@ -1,19 +1,19 @@
 return {
-    "FotiadisM/tabset.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-    opts = {
-        defaults = {
-            tabwidth = 4,
-            expandtab = true,
-        },
-        languages = {
-            {
-                filetypes = { "c", "cpp", "markdown" },
-                config = {
-                    tabwidth = 2,
-                    expandtab = true,
-                }
-            },
-        },
-    },
+	"FotiadisM/tabset.nvim",
+	event = { "BufReadPre", "BufNewFile" },
+	opts = {
+		defaults = {
+			tabwidth = 4,
+			expandtab = true,
+		},
+		languages = {
+			{
+				filetypes = { "c", "cpp", "markdown" },
+				config = {
+					tabwidth = 2,
+					expandtab = true,
+				},
+			},
+		},
+	},
 }

@@ -1,9 +1,9 @@
 return {
-    "zbirenbaum/copilot.lua",
-    event = { "InsertEnter" },
-    opts = {
-        suggestion = {
-            auto_trigger = true,
-        },
-    },
+	"zbirenbaum/copilot.lua",
+	event = { "InsertEnter" },
+	opts = {
+		suggestion = {
+			auto_trigger = true,
+		},
+	},
 }
