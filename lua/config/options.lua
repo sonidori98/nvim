@@ -25,7 +25,7 @@ vim.opt.splitright = true
 
 -- インレイヒントを有効化
 if vim.lsp.inlay_hint then
-    vim.lsp.inlay_hint.enable(true, { 0 })
+    vim.lsp.inlay_hint.enable(true, { bufnr = 0 })
 end
 
 local icons = require("config.icons")
@@ -45,13 +45,14 @@ vim.diagnostic.config({
 local uname = vim.uv.os_uname()
 local group = vim.api.nvim_create_augroup("conf-ime", {})
 if uname.sysname == "Linux" then
-    if os.getenv("WSL_DISTRO_NAME") ~= "" then
+    if os.getenv("WSL_DISTRO_NAME") then
         vim.api.nvim_create_autocmd("InsertLeave", {
             group = group,
             command = "silent! !zenhan.exe 0",
         })
     else
         vim.api.nvim_create_autocmd("InsertLeave", {
+            group = group,
             callback = function()
                 os.execute("fcitx5-remote -c")
             end
