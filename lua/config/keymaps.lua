@@ -4,7 +4,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
 keymap.set("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Lazy" })
-keymap.set("n", "<leader>m", "<cmd>Mason<cr>", { desc = "Mason" })
+keymap.set("n", "<leader>ma", "<cmd>Mason<cr>", { desc = "Mason" })
 
 keymap.set("", "<F1>", "<nop>")
 

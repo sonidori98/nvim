@@ -6,7 +6,7 @@ return {
 	{
 		"mason-org/mason-lspconfig.nvim",
 		opts = {
-			ensure_installed = { "lua_ls", "bashls", "clangd", "rust_analyzer" },
+			ensure_installed = { "lua_ls", "bashls", "clangd", "rust_analyzer", "texlab" },
 			automatic_enable = {
 				exclude = { "stylua" },
 			},

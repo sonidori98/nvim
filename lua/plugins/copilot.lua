@@ -5,5 +5,8 @@ return {
 		suggestion = {
 			auto_trigger = true,
 		},
+		filetypes = {
+			markdown = true,
+		},
 	},
 }

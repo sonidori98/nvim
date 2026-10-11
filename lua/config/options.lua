@@ -23,6 +23,12 @@ vim.opt.wrap = false
 
 vim.opt.splitright = true
 
+-- 折りたたみ
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldlevel = 99
+vim.opt.foldtext = ""
+
 -- インレイヒントを有効化
 if vim.lsp.inlay_hint then
 	vim.lsp.inlay_hint.enable(true)
