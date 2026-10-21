@@ -7,6 +7,10 @@ vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
 vim.opt.expandtab = true
 
+-- 空白文字を可視化
+vim.opt.list = true
+vim.opt.listchars = { tab = "▸ ", trail = "·" }
+
 -- カーソルをブロックに
 vim.opt.guicursor = "i:block"
 
