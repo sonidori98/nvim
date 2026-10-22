@@ -33,6 +33,9 @@ vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldlevel = 99
 vim.opt.foldtext = ""
 
+-- アルファベットもインクリメント，デクリメント
+vim.opt.nrformats:append("alpha")
+
 -- インレイヒントを有効化
 if vim.lsp.inlay_hint then
 	vim.lsp.inlay_hint.enable(true)
