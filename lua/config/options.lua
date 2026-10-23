@@ -7,6 +7,10 @@ vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
 vim.opt.expandtab = true
 
+-- 空白文字を可視化
+vim.opt.list = true
+vim.opt.listchars = { tab = "▸ ", trail = "·" }
+
 -- カーソルをブロックに
 vim.opt.guicursor = "i:block"
 
@@ -28,6 +32,9 @@ vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldlevel = 99
 vim.opt.foldtext = ""
+
+-- アルファベットもインクリメント，デクリメント
+vim.opt.nrformats:append("alpha")
 
 -- インレイヒントを有効化
 if vim.lsp.inlay_hint then
