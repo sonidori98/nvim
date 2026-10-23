@@ -12,6 +12,10 @@ return {
 			cpp = { "clang-format" },
 			rust = { "rustfmt" },
 			python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
+			javascript = { "prettier" },
+			typescript = { "prettier" },
+			html = { "prettier" },
+			css = { "prettier" },
 		},
 	},
 }
