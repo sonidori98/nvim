@@ -9,7 +9,7 @@ vim.opt.expandtab = true
 
 -- 空白文字を可視化
 vim.opt.list = true
-vim.opt.listchars = { tab = "▸ ", trail = "·" }
+vim.opt.listchars = { tab = "▸ ", trail = "·", lead = "·" }
 
 -- カーソルをブロックに
 vim.opt.guicursor = "i:block"
