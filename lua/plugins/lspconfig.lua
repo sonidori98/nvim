@@ -20,5 +20,8 @@ return {
 		vim.lsp.config("*", {
 			capabilities = capabilities,
 		})
+		vim.lsp.config("clangd", {
+			cmd = { "clangd", "--query-driver=/nix/store/*/bin/gcc,/run/current-system/sw/bin/gcc" },
+		})
 	end,
 }
