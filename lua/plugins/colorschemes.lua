@@ -13,4 +13,10 @@ return {
 		lazy = true,
 		opts = {},
 	},
+
+	{
+		"ellisonleao/gruvbox.nvim",
+		lazy = true,
+		opts = {},
+	},
 }
