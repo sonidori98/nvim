@@ -10,7 +10,6 @@ keymap.set("", "<F1>", "<nop>")
 
 local colorschemes = {
 	{ theme = "parsee", plugin = "parsee.nvim" },
-	{ theme = "tokyonight-moon", plugin = "tokyonight.nvim" },
 	{ theme = "gruvbox", plugin = "gruvbox.nvim" },
 }
 local current_idx = 1
