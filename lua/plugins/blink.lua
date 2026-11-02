@@ -23,7 +23,13 @@ return {
 					name = "Dict",
 					min_keyword_length = 3,
 					opts = {
-						dictionary_files = { "/usr/share/dict/words" },
+						dictionary_files = function()
+							local wordlist = vim.env.WORDLIST
+							if wordlist and vim.uv.fs_stat(wordlist) then
+								return { wordlist }
+							end
+							return {}
+						end,
 					},
 				},
 				lazydev = {
