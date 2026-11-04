@@ -72,3 +72,18 @@ if uname.sysname == "Linux" then
 		})
 	end
 end
+
+-- 前回のカーソル位置から再開
+vim.api.nvim_create_autocmd("BufReadPost", {
+	group = vim.api.nvim_create_augroup("conf-last-position", {}),
+	callback = function(args)
+		local path = vim.api.nvim_buf_get_name(0)
+		local filename = vim.fs.basename(path)
+		if filename == "configuration.nix" then
+			local mark = vim.api.nvim_buf_get_mark(args.buf, '"')
+			if mark[1] > 0 and mark[1] <= vim.api.nvim_buf_line_count(args.buf) then
+				pcall(vim.api.nvim_win_set_cursor, 0, mark)
+			end
+		end
+	end,
+})
