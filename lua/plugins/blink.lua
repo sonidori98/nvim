@@ -1,6 +1,9 @@
 return {
 	"saghen/blink.cmp",
 	version = "*",
+	dependencies = {
+		"alexandre-abrioux/blink-cmp-npm.nvim",
+	},
 	opts = {
 		keymap = { preset = "super-tab" },
 		sources = {
@@ -16,8 +19,14 @@ return {
 				markdown = { "snippets", "lsp", "path", "dictionary" },
 				text = { "buffer", "dictionary" },
 				gitcommit = { "buffer", "dictionary" },
+				json = { "lazydev", "snippets", "lsp", "path", "buffer", "npm" },
 			},
 			providers = {
+				npm = {
+					name = "npm",
+					module = "blink-cmp-npm",
+					async = true,
+				},
 				dictionary = {
 					module = "blink-cmp-dictionary",
 					name = "Dict",
