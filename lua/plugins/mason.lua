@@ -9,7 +9,6 @@ return {
 			ensure_installed = {
 				"lua_ls",
 				"bashls",
-				"clangd",
 				"rust_analyzer",
 				"texlab",
 				"ts_ls",
