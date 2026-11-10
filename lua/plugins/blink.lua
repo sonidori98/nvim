@@ -54,6 +54,10 @@ return {
 					return ctx.mode ~= "cmdline" or not vim.tbl_contains({ "/", "?" }, vim.fn.getcmdtype())
 				end,
 			},
+			-- 候補を選ぶとドキュメントも横に出す
+			documentation = { auto_show = true },
 		},
+		-- 関数の引数を入力中にシグネチャを出す
+		signature = { enabled = true },
 	},
 }

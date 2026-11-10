@@ -23,5 +23,8 @@ return {
 		vim.lsp.config("clangd", {
 			cmd = { "clangd", "--query-driver=/nix/store/*/bin/gcc,/run/current-system/sw/bin/gcc" },
 		})
+
+		-- masonで入れていない(Nixで入れている)サーバー
+		vim.lsp.enable({ "clangd", "nixd" })
 	end,
 }
