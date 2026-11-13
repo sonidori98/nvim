@@ -16,7 +16,7 @@ return {
 				return { "lazydev", "snippets", "lsp", "path", "buffer" }
 			end,
 			per_filetype = {
-				markdown = { "snippets", "lsp", "path", "dictionary" },
+				markdown = { "snippets", "lsp", "path", "buffer", "dictionary" },
 				text = { "buffer", "dictionary" },
 				gitcommit = { "buffer", "dictionary" },
 				json = { "lazydev", "snippets", "lsp", "path", "buffer", "npm" },
