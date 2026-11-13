@@ -43,6 +43,30 @@ return {
 			end,
 		})
 
+		-- rust-analyzerの起動直後インデックス完了前にinlay hintを取ってしまい、
+		-- 以後ファイルを編集するまでヒントが更新されない問題への対処
+		vim.lsp.config("rust_analyzer", {
+			capabilities = {
+				experimental = {
+					serverStatusNotification = true,
+				},
+			},
+			handlers = {
+				["experimental/serverStatus"] = function(_, result, ctx)
+					if not result.quiescent then
+						return
+					end
+					local client = vim.lsp.get_client_by_id(ctx.client_id)
+					if not client then
+						return
+					end
+					for bufnr in pairs(client.attached_buffers) do
+						vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+					end
+				end,
+			},
+		})
+
 		-- masonで入れていない(Nixで入れている)サーバー
 		vim.lsp.enable({ "clangd", "nixd" })
 	end,
