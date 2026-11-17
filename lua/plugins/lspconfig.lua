@@ -24,6 +24,18 @@ return {
 			cmd = { "clangd", "--query-driver=/nix/store/*/bin/gcc,/run/current-system/sw/bin/gcc" },
 		})
 
+		-- compile_commands.jsonが無いファイルのフォールバック時、clangdは内部で
+		-- コンパイラを"clang"と決め打ちする。素のclangバイナリをPATHに入れていないので
+		-- (clang-toolsパッケージはclangd/clang-tidy等のみでclang本体は含まない)、
+		-- システムヘッダの位置が解決できなくなる。CompileFlags.CompilerはLSP初期化
+		-- オプションからは渡せず、clangd自身のYAML設定ファイル経由でしか指定できないため、
+		-- ここで生成して管理する。
+		do
+			local clangd_config_path = vim.fn.expand("~/.config/clangd/config.yaml")
+			vim.fn.mkdir(vim.fn.fnamemodify(clangd_config_path, ":h"), "p")
+			vim.fn.writefile({ "CompileFlags:", "  Compiler: gcc" }, clangd_config_path)
+		end
+
 		local function get_python_path(root_dir)
 			if vim.env.VIRTUAL_ENV then
 				return vim.fs.joinpath(vim.env.VIRTUAL_ENV, "bin", "python")
