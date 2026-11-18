@@ -39,3 +39,35 @@ keymap.set("n", "<Leader>tc", function()
 		print("Failed to change colorscheme: " .. theme)
 	end
 end, { desc = "Toggle Colorscheme" })
+
+local function get_selection()
+	local lines = vim.fn.getregion(vim.fn.getpos("v"), vim.fn.getpos("."), { type = vim.fn.mode() })
+	return table.concat(lines, "\n")
+end
+
+local function parse_int(text, base)
+	text = vim.trim(text)
+	if base == 16 then
+		text = text:gsub("^0[xX]", "")
+	end
+	local n = tonumber(text, base)
+	if not n then
+		vim.notify("Selected text is not a valid integer", vim.log.levels.ERROR)
+	end
+	return n
+end
+
+local function convert(base, fmt, title)
+	return function()
+		local n = parse_int(get_selection(), base)
+		if not n then
+			return
+		end
+		local out = string.format(fmt, n)
+		vim.fn.setreg("+", out)
+		vim.notify(out, vim.log.levels.INFO, { title = title })
+	end
+end
+
+vim.keymap.set("x", "<leader>x", convert(10, "0x%x", "dec → hex"), { desc = "convert dec to hex" })
+vim.keymap.set("x", "<leader>d", convert(16, "%d", "hex → dec"), { desc = "convert hex to dec" })
