@@ -40,34 +40,75 @@ keymap.set("n", "<Leader>tc", function()
 	end
 end, { desc = "Toggle Colorscheme" })
 
-local function get_selection()
-	local lines = vim.fn.getregion(vim.fn.getpos("v"), vim.fn.getpos("."), { type = vim.fn.mode() })
-	return table.concat(lines, "\n")
-end
-
 local function parse_int(text, base)
 	text = vim.trim(text)
 	if base == 16 then
 		text = text:gsub("^0[xX]", "")
 	end
 	local n = tonumber(text, base)
-	if not n then
-		vim.notify("Selected text is not a valid integer", vim.log.levels.ERROR)
+	if not n or n ~= math.floor(n) then
+		return nil
 	end
 	return n
 end
 
-local function convert(base, fmt, title)
+local function get_segments()
+	local mode = vim.fn.mode()
+	local p1, p2 = vim.fn.getpos("v"), vim.fn.getpos(".")
+	local opts = { type = mode }
+	local lines = vim.fn.getregion(p1, p2, opts)
+	local pos = vim.fn.getregionpos(p1, p2, opts)
+
+	local function seg(text, s, e)
+		return { text = text, srow = s[2] - 1, scol = s[3] - 1, erow = e[2] - 1, ecol = e[3] }
+	end
+
+	if mode == "\22" then
+		local segs = {}
+		for i, p in ipairs(pos) do
+			-- 短い行で選択範囲が空になった場合は飛ばす
+			if vim.trim(lines[i]) ~= "" then
+				table.insert(segs, seg(lines[i], p[1], p[2]))
+			end
+		end
+		return segs
+	end
+
+	return { seg(table.concat(lines, "\n"), pos[1][1], pos[#pos][2]) }
+end
+
+local function convert(base, fmt, title, replace)
 	return function()
-		local n = parse_int(get_selection(), base)
-		if not n then
+		local segs = get_segments()
+		if #segs == 0 then
+			vim.notify("Nothing to convert", vim.log.levels.WARN)
 			return
 		end
-		local out = string.format(fmt, n)
-		vim.fn.setreg("+", out)
-		vim.notify(out, vim.log.levels.INFO, { title = title })
+
+		local outs = {}
+		for i, s in ipairs(segs) do
+			local n = parse_int(s.text, base)
+			if not n then
+				vim.notify(("Not a valid integer: %q"):format(vim.trim(s.text)), vim.log.levels.ERROR)
+				return
+			end
+			outs[i] = string.format(fmt, n)
+		end
+
+		if replace then
+			for i = #segs, 1, -1 do
+				local s = segs[i]
+				vim.api.nvim_buf_set_text(0, s.srow, s.scol, s.erow, s.ecol, { outs[i] })
+			end
+			vim.api.nvim_feedkeys(vim.keycode("<Esc>"), "nx", false)
+		else
+			vim.fn.setreg("+", table.concat(outs, "\n"))
+		end
+		vim.notify(table.concat(outs, "\n"), vim.log.levels.INFO, { title = title })
 	end
 end
 
 vim.keymap.set("x", "<leader>x", convert(10, "0x%x", "dec → hex"), { desc = "convert dec to hex" })
 vim.keymap.set("x", "<leader>d", convert(16, "%d", "hex → dec"), { desc = "convert hex to dec" })
+vim.keymap.set("x", "<leader>X", convert(10, "0x%x", "dec → hex", true), { desc = "replace dec with hex" })
+vim.keymap.set("x", "<leader>D", convert(16, "%d", "hex → dec", true), { desc = "replace hex with dec" })
