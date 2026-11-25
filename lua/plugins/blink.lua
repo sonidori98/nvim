@@ -8,12 +8,10 @@ return {
 		keymap = { preset = "super-tab" },
 		sources = {
 			default = function()
-				local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-				local ok, node = pcall(vim.treesitter.get_node, { pos = { row - 1, math.max(col - 1, 0) } })
-				if ok and node and node:type():find("comment") then
+				if require("config.declaration").is_prose() then
 					return { "buffer", "dictionary" }
 				end
-				return { "lazydev", "snippets", "lsp", "path", "buffer" }
+				return { "lazydev", "snippets", "lsp", "path", "buffer", "dictionary" }
 			end,
 			per_filetype = {
 				markdown = { "snippets", "lsp", "path", "buffer", "dictionary" },
@@ -31,6 +29,16 @@ return {
 					module = "blink-cmp-dictionary",
 					name = "Dict",
 					min_keyword_length = 3,
+					score_offset = function()
+						local decl = require("config.declaration")
+						if decl.is_prose() then
+							return 0
+						end
+						return decl.is_declaring() and 10 or -5
+					end,
+					enabled = function()
+						return not require("config.declaration").is_member_access()
+					end,
 					opts = {
 						dictionary_files = function()
 							local wordlist = vim.env.WORDLIST
@@ -54,10 +62,8 @@ return {
 					return ctx.mode ~= "cmdline" or not vim.tbl_contains({ "/", "?" }, vim.fn.getcmdtype())
 				end,
 			},
-			-- 候補を選ぶとドキュメントも横に出す
 			documentation = { auto_show = true },
 		},
-		-- 関数の引数を入力中にシグネチャを出す
 		signature = { enabled = true },
 	},
 }
