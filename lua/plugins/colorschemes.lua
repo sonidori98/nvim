@@ -9,8 +9,11 @@ return {
 	},
 
 	{
-		"ellisonleao/gruvbox.nvim",
+		"neanias/everforest-nvim",
 		lazy = true,
-		opts = {},
+		main = "everforest",
+		opts = {
+			background = "hard",
+		},
 	},
 }

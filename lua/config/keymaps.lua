@@ -10,7 +10,7 @@ keymap.set("", "<F1>", "<nop>")
 
 local colorschemes = {
 	{ theme = "parsee", plugin = "parsee.nvim" },
-	{ theme = "gruvbox", plugin = "gruvbox.nvim" },
+	{ theme = "everforest", plugin = "everforest-nvim" },
 }
 local current_idx = 1
 
